@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.scss';
+import SideBar from "./components/Sidebar/Sidebar";
+import {Switch, Route} from "react-router-dom";
+import MainPage from "./components/MainPage/MainPage";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
+    <div className={styles.App}>
+        <SideBar/>
+        <Switch>
+            <Route path={'/main-page'} component={MainPage}></Route>
+        </Switch>
     </div>
   );
 }
