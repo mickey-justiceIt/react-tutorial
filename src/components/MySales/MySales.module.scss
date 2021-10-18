@@ -1,0 +1,59 @@
+$backgroundColor: #F8F8F8;
+$buttonBackground: #5382E7;
+$buttonFontcolor: #FFFFFF;
+$backgroundColorWraps: rgba(255, 255, 255, 1);
+$fontGraphColor: #2B3844;
+$fontSizeH2: 18px;
+$fontWeightH2: 600;
+
+.container{
+  width: 100vw;
+  height: 100vh;
+  background: $backgroundColor;
+}
+
+.wrapper {
+  padding: 50px 50px;
+
+  .headWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    .headWrapperTitle {
+      h1 {
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        font-size: 36px;
+      }
+
+      p {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 14px;
+        opacity: 0.7;
+      }
+
+    }
+
+    .wrapperButton {
+      display: flex;
+      width: 11vw;
+      height: 5vh;
+      background-color: $buttonBackground;
+      border-radius: 3px;
+      color: $buttonFontcolor;
+      align-items: center;
+      font-size: 14px;
+      justify-content: center;
+      text-align: center;
+      padding: 5px;
+      cursor: pointer;
+
+      .buttonText {
+        margin-left: 5px;
+      }
+    }
+
+  }
+}

@@ -1,13 +1,16 @@
 $titleFontColor: #2B3844;
 $iconFontColor: #FFFFFF;
-$iconBackgroundColor: rgba(83, 130, 231, 1);
+$iconBackgroundColor: #5382E7;
 
 .container{
-  width: 19%;
+  width: 18%;
+  max-width: 274px;
+  min-width: 200px;
   height: 100vh;
+
   .logoWrap{
     display: flex;
-    padding: 40px;
+    padding: 40px 0 60px 0;
     align-items: center;
     justify-content: center;
     color: $iconFontColor;
@@ -17,6 +20,7 @@ $iconBackgroundColor: rgba(83, 130, 231, 1);
       display: block;
       color: black;
     }
+
     .logoIconWrap{
       display: flex;
       width: 48px;
@@ -27,30 +31,52 @@ $iconBackgroundColor: rgba(83, 130, 231, 1);
       justify-content: center;
       border-radius: 3px;
     }
-
   }
+
   .navWrap{
-    height: 20vh;
-
+    height: 75vh;
     .navList{
-      padding-left: 30px;
-
       .navItem{
+        position: relative;
         display: flex;
-        padding-bottom: 30px;
+        align-items: center;
+        height: 6vh;
+
         &:hover{
-          color: $iconBackgroundColor ;
-          border-right-color: blue;
+          background:rgba(83, 130, 231, 0.04) ;
+          border-right: 2px solid $iconBackgroundColor;
+          filter: invert(0.5)
+                  sepia(1)
+                  hue-rotate(200deg)
+                  saturate(4)
+                  brightness(1);
         }
+        .navIcon{
+          padding-left: 30px;
+        }
+        .navText{
+          margin-left: 10px;
+          border: none;
+          color: #a2aab1;
+          text-decoration: none;
         }
 
-
+      }
 
     }
 
   }
 
+  a{
+    text-decoration: none;
+  }
 
+  .loginWrap{
+    margin: 0 30px 0 30px;
+
+    .loginElement{
+      padding: 50px 0 50px 0 ;
+    }
+  }
 
 }
-
