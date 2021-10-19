@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from './PersonalCabinet.module.scss'
-import mock  from '../mock';
+import {imgs}  from '../../mock/mock';
 import ModalPopUp from "../ModalPopUp/ModalPopUp";
 
 const PersonalCabinet = (props) => {
@@ -18,7 +18,7 @@ const PersonalCabinet = (props) => {
                             <p>Information about your account</p>
                         </div>
                         <div onClick={openModal} className={styles.wrapperButton}>
-                            <img src={mock[0].createIcon} className={styles.buttonLogo} alt={'createIcon'}/>
+                            <img src={imgs[0].createIcon} className={styles.buttonLogo} alt={'createIcon'}/>
                             <p className={styles.buttonText}>Create a product</p>
                         </div>
                     </div>

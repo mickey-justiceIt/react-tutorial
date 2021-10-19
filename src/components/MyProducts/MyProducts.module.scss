@@ -53,6 +53,55 @@ $fontWeightH2: 600;
         margin-left: 5px;
       }
     }
-
   }
+}
+
+.productsListMenus{
+  display: flex;
+  height: 5vh;
+  justify-content: space-between;
+  color: #FFFFFF;
+  background: #2B3844;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
+
+}
+
+.productListMenu{
+  width: 10%;
+  list-style: none;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.productItem{
+  list-style: none;
+  width: 10%;
+  text-align: center;
+
+}
+
+.productItems:nth-child(odd){
+  background: #FFFFFF;
+}
+
+.productItem:last-child{
+  display: flex;
+}
+.button{
+  color:#5382E7;
+  display: flex;
+  width: 15vw;
+  background: rgba(83, 130, 231, 0.1);
+  margin-left: 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.button:last-child{
+  background: none;
 }
