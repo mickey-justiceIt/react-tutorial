@@ -53,7 +53,7 @@ const SideBar = (props) => {
             <div className={styles.loginWrap}>
                 <hr/>
                 <div className={styles.loginElement}>
-                    <Redirect to={'sign-in'} pa/>
+                    <p>Login</p>
                 </div>
             </div>
         </div>
