@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Sidebar.module.scss'
-import Login from "../Login/Login";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 import {imgs} from "../../mock/mock";
 
@@ -53,7 +52,9 @@ const SideBar = (props) => {
             </nav>
             <div className={styles.loginWrap}>
                 <hr/>
-                <div className={styles.loginElement}><Login/></div>
+                <div className={styles.loginElement}>
+                    <Redirect to={'sign-in'} pa/>
+                </div>
             </div>
         </div>
     );

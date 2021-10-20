@@ -1,16 +1,9 @@
 import MyProducts from "../MyProducts/MyProducts";
-import Login from "../Login/Login";
 import MainPage from "../MainPage/MainPage";
 import PersonalCabinet from "../PersonalCabinet/PersonalCabinet";
 import MySales from "../MySales/MySales";
 
 export const routes = [
-    {
-        component: Login,
-        path: '/login/',
-        exact: true,
-        withAuth: true
-    },
     {
         component: MainPage,
         path: '/main-page',

@@ -7,6 +7,7 @@ import { routes } from './components/Routing/routes';
 import ProtectedRoute from './components/Routing/ProtectedRoute';
 import MySales from "./components/MySales/MySales";
 import PersonalCabinet from "./components/PersonalCabinet/PersonalCabinet";
+import SignIn from "./components/Sign/SingIn/SignIn";
 function App() {
 
     routes.map((route,index) => (
@@ -24,7 +25,7 @@ function App() {
                 <Route exact path={'/main-page'} component={MainPage}></Route>
                 <Route path={'/products'} component={MyProducts}></Route>
                 <Route path={'/sales'} component={MySales}></Route>
-                <Route path={'/personal-cabinet'} component={PersonalCabinet} ></Route>
+                <Route path={'/personal-cabinet'} component={PersonalCabinet}></Route>
             </Switch>
         </div>
 

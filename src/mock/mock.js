@@ -11,7 +11,11 @@ import salesIcon from '../assets/logo/sales.svg'
 import personCabinetIcon from '../assets/logo/user.svg'
 import editIcon from "../assets/logo/edit2.svg";
 import deleteIcon from "../assets/logo/delete.svg";
+import plus from "../assets/logo/plus.svg"
 
+const today = new Date();
+const date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear()
+const cuttedAddress = 'Krylatskaya street,15'.split('').slice(0,15).join('') + '...'
 export const imgs = [
     {
             oval: oval,
@@ -26,7 +30,8 @@ export const imgs = [
             personCabinetIcon:personCabinetIcon,
             salesIcon: salesIcon,
             editIcon: editIcon,
-            deleteIcon: deleteIcon
+            deleteIcon: deleteIcon,
+            plus: plus,
     },
    {
 
@@ -38,9 +43,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -49,9 +54,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -60,9 +65,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -71,9 +76,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -82,9 +87,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -93,9 +98,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -104,9 +109,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -115,9 +120,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -126,9 +131,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -137,9 +142,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -148,9 +153,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -159,9 +164,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -170,9 +175,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5
@@ -181,9 +186,9 @@ export const products = [
     id: Math.floor(Math.random() * 1000),
     productName: 'Sneakers',
     store: 'Adidas',
-    address: 'Krylatskaya str...',
+    address: cuttedAddress,
     category: 'SportsWear',
-    creationDate: '05.07.2021',
+    creationDate: date,
     price: 1000,
     remains: 40,
     weight: 5

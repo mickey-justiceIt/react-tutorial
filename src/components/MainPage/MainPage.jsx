@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import ModalPopUp from '../../components/ModalPopUp/ModalPopUp';
+import ModalPopUp from '../Modals/PopUpModal/ModalPopUp';
 import PieChart from "../Charts/PieChart/PieChart";
 import {imgs} from '../../mock/mock';
 

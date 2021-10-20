@@ -3,15 +3,15 @@ import React, {useEffect, useState} from 'react';
 import styles from './MyProducts.module.scss'
 
 import { imgs } from '../../mock/mock'
-import ProductItem from "./ProductItem/Productitem";
-import ModalPopUp from "../ModalPopUp/ModalPopUp";
 import { products } from "../../mock/mock";
-import {set} from "react-hook-form";
+
+import ProductItem from "./ProductItem/Productitem";
+import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
+
 
 const MyProducts = (props) => {
 	const [hidden, setHidden] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false)
-
 	const [allProducts, setAllProducts] = useState([])
 
   const handleSubmit = () => {
@@ -59,7 +59,9 @@ const MyProducts = (props) => {
 							<div className={styles.productListMenu}>Actions</div>
 						</div>
             {allProducts.map((product) =>
-              <ProductItem product={product} />
+              <ProductItem product={product}
+													 allProducts={allProducts}
+													 setAllProducts={setAllProducts}/>
             )}
 					</div>
 				</div>

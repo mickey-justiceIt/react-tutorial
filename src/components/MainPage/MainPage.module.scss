@@ -37,15 +37,14 @@ $fontWeightH2: 600;
 
     .wrapperButton{
       display: flex;
-      width: 11vw;
-      height: 5vh;
+      max-width: 11vw;
+      max-height: 5vh;
       background-color: $buttonBackground;
       border-radius: 3px;
       color: $buttonFontcolor;
       align-items: center;
       font-size: 14px;
       justify-content: center;
-      text-align: center;
       padding: 5px;
       cursor: pointer;
 
@@ -60,13 +59,9 @@ $fontWeightH2: 600;
     display: grid;
     width: 100%;
     grid-template-areas:
-
-"day overview overview"
-
-"total overview overview"
-
-"total overview overview ";
-
+            "day overview overview"
+            "total overview overview"
+            "total overview overview ";
     grid-gap: 30px;
     grid-template-rows: 60% 1fr 30px;
     grid-template-columns: 40% 1fr;
