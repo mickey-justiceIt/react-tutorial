@@ -1,71 +1,114 @@
-import React from 'react'
-import styles from './ModulePopUp.module.scss'
-import close from '../../../assets/logo/close.svg'
-import plus from '../../../assets/logo/plus.svg'
-import {useForm} from "react-hook-form";
-import {products} from "../../../mock/mock";
+import React, { useState } from "react";
+import styles from "./ModulePopUp.module.scss";
+import close from "../../../assets/logo/close.svg";
+import plus from "../../../assets/logo/plus.svg";
 
+const today = new Date();
+const presentDate =
+  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 
-const ModalPopUp = ({hidden, setHidden, allProducts}) => {
-	const {register, handleSubmit} = useForm()
-	const onSubmit = (data) => {
-		allProducts.push(
-			{
-				id: Math.floor(Math.random() * 1000),
-				productName: data.productName,
-				store: data.store,
-				category: data.category,
-				remains: data.remains,
-				weight: data.weight,
-				creationDate: products[0].creationDate,
-				price: data.price,
-				address: products[0].address
-			}
-		)
-		localStorage.setItem('products', JSON.stringify(allProducts))
-	}
-	return (
-		<div style={{display: hidden ? 'block' : 'none'}}
-				 className={styles.overlay}>
-			<div style={{display: hidden ? 'block' : 'none'}}
-					 className={styles.modalWrapper}>
-				<div onClick={() => setHidden(false)}
-						 className={styles.close}
-						 src={close} alt="close"
-				/>
-				<div className={styles.modalBox}>
-					<h1>Create a product</h1>
-					<form onSubmit={handleSubmit(onSubmit)}
-								className={styles.modalForm}
-								action="submit">
-						<input  {...register('store')}
-										placeholder='Store'
-										type="text"/>
-						<input {...register('price')}
-									 placeholder='Price'
-									 type="number"/>
-						<input {...register('productName')}
-									 placeholder='Product Name'
-									 type="text"/>
-						<input {...register('category')}
-									 placeholder='Product Category'
-									 type="text"/>
-						<input {...register('remains')}
-									 placeholder='Quanity of goods'
-									 type="number"/>
-						<input {...register('weight')}
-									 placeholder='Weight/Volume of one item'
-									 type="text"/>
-						<button className={styles.formBtn}>
-							<span>Add a product</span>
-							<img src={plus} alt="plus"/>
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
+const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
+  const [form, setForm] = useState({
+    productName: "",
+    store: "",
+    category: "",
+    remains: "",
+    weight: "",
+    price: "",
+  });
 
-	)
-}
+  const onChangeForm = (e, name) => {
+    const { value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const newProducts = [
+      ...allProducts,
+      {
+        id: Math.floor(Math.random() * 1000),
+        productName: form.productName,
+        store: form.store,
+        category: form.category,
+        remains: form.remains,
+        weight: form.weight,
+        creationDate: presentDate,
+        price: form.price,
+        address: "Krylatskaya st",
+      },
+    ];
+
+    localStorage.setItem("products", JSON.stringify(newProducts));
+    handleSubmit();
+  };
+
+  return (
+    <div
+      style={{ display: hidden ? "block" : "none" }}
+      className={styles.overlay}
+    >
+      <div
+        style={{ display: hidden ? "block" : "none" }}
+        className={styles.modalWrapper}
+      >
+        <div
+          onClick={() => setHidden(false)}
+          className={styles.close}
+          src={close}
+          alt="close"
+        />
+        <div className={styles.modalBox}>
+          <h1>Create a product</h1>
+          <div className={styles.modalForm}>
+            <input
+              onChange={(e) => onChangeForm(e, "store")}
+              value={form.store}
+              placeholder="Store"
+              type="text"
+            />
+            <input
+              onChange={(e) => onChangeForm(e, "price")}
+              value={form.price}
+              placeholder="Price"
+              type="number"
+            />
+            <input
+              onChange={(e) => onChangeForm(e, "productName")}
+              value={form.productName}
+              placeholder="Product Name"
+              type="text"
+            />
+            <input
+              onChange={(e) => onChangeForm(e, "category")}
+              value={form.category}
+              placeholder="Product Category"
+              type="text"
+            />
+            <input
+              onChange={(e) => onChangeForm(e, "remains")}
+              value={form.remains}
+              placeholder="Quanity of goods"
+              type="number"
+            />
+            <input
+              onChange={(e) => onChangeForm(e, "weight")}
+              value={form.weight}
+              placeholder="Weight/Volume of one item"
+              type="text"
+            />
+            <button className={styles.formBtn} onClick={onSubmit}>
+              <span>Add a product</span>
+              <img src={plus} alt="plus" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ModalPopUp;

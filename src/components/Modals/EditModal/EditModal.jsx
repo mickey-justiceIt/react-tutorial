@@ -1,81 +1,116 @@
-import React from 'react'
-import {useForm} from "react-hook-form";
+import React, { useMemo, useState } from "react";
 
-import styles from './EditModal.module.scss'
+import styles from "./EditModal.module.scss";
+import { imgs } from "../../../mock/mock";
 
-import {imgs, products} from "../../../mock/mock";
+const today = new Date();
+const presentDate =
+  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 
-const EditModal = ({hidden, setHidden, allProducts,id,store,price,remains,weight,productName,category}) => {
+const EditModal = ({ hidden, setHidden, id, products }) => {
+  const [form, setForm] = useState({
+    productName: "",
+    store: "",
+    category: "",
+    remains: "",
+    weight: "",
+    price: "",
+  });
+  const onChangeForm = (e, name) => {
+    const { value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-	const {register, handleSubmit} = useForm()
+  const onSubmit = () => {
+    const newProducts = products.map((pr) => {
+      if (pr.id === form.id) {
+        return {
+          id: form.id,
+          productName: form.productName,
+          store: form.store,
+          category: form.category,
+          remains: form.remains,
+          weight: form.weight,
+          creationDate: presentDate,
+          price: form.price,
+          address: "",
+        };
+      }
+      return pr;
+    });
 
-	const onSubmit = (data) => {
+    localStorage.setItem("products", JSON.stringify(newProducts));
+  };
 
-		allProducts.push(
-			{
-				id: Math.floor(Math.random() * 1000),
-				store: data.store,
-				productName: data.productName,
-				category: data.category,
-				remains: data.remains,
-				weight: data.weight,
-				creationDate: products[0].creationDate,
-				price: data.price,
-				address: products[0].address
-			}
+  const newProduct = useMemo(() => {
+    return products.filter((pr) => pr.id === id)[0];
+  }, [products]);
 
-		)
-		localStorage.setItem('products', JSON.stringify(allProducts))
+  return (
+    <div
+      style={{ display: hidden ? "block" : "none" }}
+      className={styles.overlay}
+    >
+      <div
+        style={{ display: hidden ? "block" : "none" }}
+        className={styles.modalWrapper}
+      >
+        <div
+          onClick={() => setHidden(false)}
+          className={styles.close}
+          src={imgs.close}
+          alt="closeIcon"
+        />
+        <div className={styles.modalBox}>
+          <h1>Editing a product</h1>
+          <div id={id} className={styles.modalForm}>
+            <input
+              defaultValue={newProduct.store}
+              placeholder="Store"
+              type="text"
+            />
+            <input
+              defaultValue={newProduct.price}
+              placeholder="Price"
+              onChange={(e) => onChangeForm(e, "price")}
+              type="number"
+            />
+            <input
+              defaultValue={newProduct.productName}
+              placeholder="Product Name"
+              onChange={(e) => onChangeForm(e, "productName")}
+              type="text"
+            />
 
-	}
-	return (
-		<div style={{ display: hidden ? 'block' : 'none'}}
-				 className={styles.overlay}>
-			<div style={{display: hidden ? 'block' : 'none'}}
-					 className={styles.modalWrapper}>
-				<div onClick={() => setHidden(false)}
-						 className={styles.close}
-						 src={imgs[0].close}
-						 alt="closeIcon"/>
-				<div className={styles.modalBox}>
-					<h1>Editing a product</h1>
-					<form id={id}
-								onSubmit={handleSubmit(onSubmit)}
-								className={styles.modalForm}
-								action="submit">
-						<input value={store}
-									 {...register('store')}
-									 placeholder='Store'
-									 type="text" />
-						<input value={price}
-									 {...register('price')}
-									 placeholder='Price'
-									 type="number"/>
-						<input value={productName}
-									 {...register('productName')}
-									 placeholder='Product Name'
-									 type="text"/>
-						<input value={category}
-									 {...register('category')}
-									 placeholder='Product Category'
-									 type="text"/>
-						<input value={remains}
-									 {...register('remains')}
-									 placeholder='Quanity of goods' type="number"/>
-						<input value={weight} {...register('weight')}
-									 placeholder='Weight/Volume of one item'
-									 type="text"/>
-						<button className={styles.formBtn}>
-							<span>Add a product</span>
-							 <img src={imgs[0].plus} alt="plus"/>
-						</button>
-					</form>
-
-				</div>
-			</div>
-		</div>
-	)
-
-}
+            <input
+              defaultValue={newProduct.category}
+              placeholder="Product Category"
+              onChange={(e) => onChangeForm(e, "category")}
+              type="text"
+            />
+            <input
+              defaultValue={newProduct.remains}
+              placeholder="Quanity of goods"
+              onChange={(e) => onChangeForm(e, "remains")}
+              type="number"
+            />
+            <input
+              defaultValue={newProduct.weight}
+              placeholder="Weight/Volume of one item"
+              onChange={(e) => onChangeForm(e, "weight")}
+              type="text"
+            />
+            <button onClick={onSubmit} className={styles.formBtn}>
+              <span>Save changes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default EditModal;

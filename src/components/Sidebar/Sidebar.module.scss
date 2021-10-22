@@ -7,7 +7,6 @@ $iconBackgroundColor: #5382E7;
   max-width: 274px;
   min-width: 200px;
   height: 100vh;
-
   .logoWrap{
     display: flex;
     padding: 40px 0 60px 0;
@@ -15,12 +14,10 @@ $iconBackgroundColor: #5382E7;
     justify-content: center;
     color: $iconFontColor;
     text-transform: uppercase;
-
     .logoIconText{
       display: block;
       color: black;
     }
-
     .logoIconWrap{
       display: flex;
       width: 48px;
@@ -32,7 +29,6 @@ $iconBackgroundColor: #5382E7;
       border-radius: 3px;
     }
   }
-
   .navWrap{
     height: 75vh;
     .navList{
@@ -41,15 +37,15 @@ $iconBackgroundColor: #5382E7;
         display: flex;
         align-items: center;
         height: 6vh;
-
         &:hover{
           background:rgba(83, 130, 231, 0.04) ;
           border-right: 2px solid $iconBackgroundColor;
-          filter: invert(0.5)
-                  sepia(1)
-                  hue-rotate(200deg)
-                  saturate(4)
-                  brightness(1);
+          filter:
+           invert(0.5)
+           sepia(1)
+           hue-rotate(200deg)
+           saturate(4)
+           brightness(1);
         }
         .navIcon{
           padding-left: 30px;
@@ -63,11 +59,9 @@ $iconBackgroundColor: #5382E7;
       }
     }
   }
-
   a{
     text-decoration: none;
   }
-
   .loginWrap {
     margin: 0 30px 0 30px;
   }
