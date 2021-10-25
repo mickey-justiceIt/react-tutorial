@@ -6,7 +6,14 @@ import { NavLink, Redirect } from "react-router-dom";
 
 import { imgs } from "../../mock/mock";
 
-const SideBar = (props) => {
+const SideBar = ({ isLogin, setIsLogin, setIsReg, isReg }) => {
+  const handleLogout = () => {
+    setIsReg(localStorage.setItem("ISREG", JSON.stringify(false)));
+    setIsLogin(localStorage.setItem("ISLOGIN", JSON.stringify(false)));
+  };
+  if (!(isLogin && isReg)) {
+    return <Redirect to="/signin" />;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.logoWrap}>
@@ -24,7 +31,7 @@ const SideBar = (props) => {
                 src={imgs.pageIcon}
                 alt="page-icon"
               />
-              <a className={styles.navText}>Main page</a>
+              <span className={styles.navText}>Main page</span>
             </li>
           </NavLink>
           <NavLink to={"/products"}>
@@ -34,7 +41,7 @@ const SideBar = (props) => {
                 src={imgs.productsIcon}
                 alt="product-icon"
               />
-              <a className={styles.navText}>My products</a>
+              <span className={styles.navText}>My products</span>
             </li>
           </NavLink>
           <NavLink to={"/sales"}>
@@ -44,7 +51,7 @@ const SideBar = (props) => {
                 src={imgs.salesIcon}
                 alt="sales-icon"
               />
-              <a className={styles.navText}>My sales</a>
+              <span className={styles.navText}>My sales</span>
             </li>
           </NavLink>
           <NavLink to={"/personal-cabinet"}>
@@ -54,14 +61,17 @@ const SideBar = (props) => {
                 src={imgs.personCabinetIcon}
                 alt="cabinet-icon"
               />
-              <a className={styles.navText}>Personal cabinet</a>
+              <span className={styles.navText}>Personal cabinet</span>
             </li>
           </NavLink>
         </ul>
       </nav>
       <div className={styles.loginWrap}>
         <hr />
-        <div className={styles.loginElement}>Login</div>
+        <div onClick={handleLogout} className={styles.loginElement}>
+          <img src={imgs.logout} alt="logout" />
+          <span>Log out</span>
+        </div>
       </div>
     </div>
   );

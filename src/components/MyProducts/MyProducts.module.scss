@@ -10,12 +10,11 @@ $fontWeightH2: 600;
 }
 .container{
   width: 100vw;
-  height: 100vh;
   background: $backgroundColor;
 }
 
 .wrapper {
-  padding: 50px 50px;
+  padding: 50px 50px 0 50px;
 
   .headWrapper {
     display: flex;
@@ -29,6 +28,7 @@ $fontWeightH2: 600;
         font-size: 36px;
       }
       p {
+        color:$fontGraphColor ;
         font-weight: 400;
         font-size: 14px;
         line-height: 14px;
@@ -38,7 +38,6 @@ $fontWeightH2: 600;
     .wrapperButton {
       display: flex;
       width: 11vw;
-      height: 5vh;
       background-color: $buttonBackground;
       border-radius: 3px;
       color: $buttonFontcolor;
@@ -48,7 +47,8 @@ $fontWeightH2: 600;
       text-align: center;
       padding: 5px;
       cursor: pointer;
-
+      max-width: 201px;
+      max-height: 52px;
       .buttonText {
         margin-left: 5px;
       }
@@ -58,17 +58,19 @@ $fontWeightH2: 600;
 
 .productsListMenus{
   display: flex;
-  height: 5vh;
+  min-height: 54px;
   justify-content: space-between;
   color: #FFFFFF;
   background: #2B3844;
   align-items: center;
   text-align: center;
   margin-bottom: 24px;
+  border-radius: 3px;
 
 }
 
 .productListMenu{
+  display: flex;
   width: 10%;
   list-style: none;
   text-align: center;
@@ -80,7 +82,7 @@ $fontWeightH2: 600;
   list-style: none;
   width: 10%;
   text-align: center;
-
+  
 }
 
 .productItems:nth-child(odd){
@@ -105,3 +107,9 @@ $fontWeightH2: 600;
 .button:last-child{
   background: none;
 }
+
+.products{
+  height: 70vh;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  overflow-x: hidden;}

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
-import PieChart from "../Charts/PieChart/PieChart";
 import { imgs, products } from "../../mock/mock";
 
-import styles from "./MainPage.module.scss";
+import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
+import PieChart from "../Charts/PieChart/PieChart";
 import BarChart from "../Charts/BarChart/BarChart";
+import LineChart from "../Charts/LineChart/LineChart";
+import styles from "./MainPage.module.scss";
 
 const MainPage = (props) => {
   const [hidden, setHidden] = useState(false);
@@ -22,6 +23,7 @@ const MainPage = (props) => {
   const openModal = () => {
     setHidden(true);
   };
+
   return (
     <>
       <div className={styles.container}>
@@ -37,7 +39,7 @@ const MainPage = (props) => {
                 className={styles.buttonLogo}
                 alt={"createIcon"}
               />
-              <p className={styles.buttonText}>Create a product</p>
+              <span className={styles.buttonText}>Create a product</span>
             </div>
           </div>
           <hr />
@@ -45,45 +47,20 @@ const MainPage = (props) => {
             <div className={styles.saleDay}>
               <h2>Sales schedule by day</h2>
               <div className={styles.ovalDiagram}>
-                {/*<PieChart />*/}
-                <ul className={styles.analyticList}>
-                  <li className={styles.analyticItem}>
-                    <img
-                      className={styles.ovalIcon}
-                      src={imgs.smallOvalIcon}
-                      alt="analytic"
-                    />
-                    <p>Auto goods</p>
-                  </li>
-                  <li className={styles.analyticItem}>
-                    <img src={imgs.smallOvalIcon} alt="" />
-                    <p>Auto goods</p>
-                  </li>
-
-                  <li className={styles.analyticItem}>
-                    <img src={imgs.smallOvalIcon} alt="" />
-                    <p>Auto goods</p>
-                  </li>
-
-                  <li className={styles.analyticItem}>
-                    <img src={imgs.smallOvalIcon} alt="" />
-                    <p>Auto goods</p>
-                  </li>
-                </ul>
+                <PieChart />
               </div>
             </div>
 
             <div className={styles.saleTotal}>
-              <h2>Total earned</h2>
+              <h2>Total products price</h2>
               <div className={styles.vectorDiagram}>
-                <img src={imgs.vector} alt="vector" />
-                <p>$106,000</p>
+                <LineChart />
               </div>
             </div>
 
             <div className={styles.saleOverview}>
-              <h2>Sales overview</h2>
-              <p>Graph sales for all days</p>
+              <h2>Products overview</h2>
+              <span>Graph sales for all days</span>
               <div className={styles.overviewDiagram}>
                 <BarChart />
               </div>

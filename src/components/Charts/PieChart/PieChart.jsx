@@ -1,37 +1,36 @@
 import * as React from "react";
-import Paper from "@material-ui/core/Paper";
-import {
-  Chart,
-  PieSeries,
-  Title,
-} from "@devexpress/dx-react-chart-material-ui";
+
+import { Chart, PieSeries } from "@devexpress/dx-react-chart-material-ui";
 import { Animation } from "@devexpress/dx-react-chart";
 
-const data = [
-  { product: "#5B6ACD", area: 12 },
-  { color: "#5182E7", area: 7 },
-  { color: "#1CAF7F", area: 7 },
-  { color: "#F4AE43", area: 7 },
-];
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data,
-    };
-  }
+import styles from "./PieChart.module.scss";
 
-  render() {
-    const { data: chartData } = this.state;
-
-    return (
-      <Chart data={chartData}>
-        <PieSeries valueField="area" argumentField="color" />
-        <PieSeries valueField="area" argumentField="color" color={data} />
-        <PieSeries valueField="area" argumentField="color" />
-        <Title text="Sales schedule by Day" />
+export default function PieChart() {
+  const arr = [];
+  const pieData = JSON.parse(localStorage.getItem("sale")) || [];
+  pieData.map((dataItem) =>
+    arr.push({ name: dataItem.store, area: dataItem.price })
+  );
+  return (
+    <>
+      <Chart
+        classname={styles.chart}
+        style={{
+          width: "10%",
+          height: "15%",
+          marginLeft: "100px",
+          position: "absolute",
+        }}
+        data={arr}
+      >
+        <PieSeries valueField="area" argumentField="name" />
         <Animation />
       </Chart>
-    );
-  }
+      <div className={styles.analyticList}>
+        {pieData.map((pr) => (
+          <p className={styles.analyticItem}>{pr?.store}</p>
+        ))}
+      </div>
+    </>
+  );
 }

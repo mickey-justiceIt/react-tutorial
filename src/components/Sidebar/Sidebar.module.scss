@@ -30,7 +30,7 @@ $iconBackgroundColor: #5382E7;
     }
   }
   .navWrap{
-    height: 75vh;
+    height: 70vh;
     .navList{
       .navItem{
         position: relative;
@@ -65,5 +65,22 @@ $iconBackgroundColor: #5382E7;
   .loginWrap {
     margin: 0 30px 0 30px;
   }
-
+}
+.loginElement{
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  img,span{
+    color: #a2aab1;
+  }
+  span{
+    margin-left: 9px;
+  }
+  img{
+    filter:
+    invert(0.5)
+    sepia(1)
+    grayscale(100%)
+  }
 }

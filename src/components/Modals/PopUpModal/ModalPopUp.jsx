@@ -1,12 +1,8 @@
 import React, { useState } from "react";
+
 import styles from "./ModulePopUp.module.scss";
-import close from "../../../assets/logo/close.svg";
-import plus from "../../../assets/logo/plus.svg";
 
-const today = new Date();
-const presentDate =
-  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
-
+import { imgs } from "../../../mock/mock";
 const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
   const [form, setForm] = useState({
     productName: "",
@@ -27,6 +23,15 @@ const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const today = new Date();
+    const presentDate =
+      today.getDate() +
+      "." +
+      (today.getMonth() + 1) +
+      "." +
+      today.getFullYear();
+    const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
+
     const newProducts = [
       ...allProducts,
       {
@@ -38,12 +43,13 @@ const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
         weight: form.weight,
         creationDate: presentDate,
         price: form.price,
-        address: "Krylatskaya st",
+        address: userInfo.address || "No configured address",
       },
     ];
 
     localStorage.setItem("products", JSON.stringify(newProducts));
     handleSubmit();
+    setHidden(false);
   };
 
   return (
@@ -58,7 +64,7 @@ const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
         <div
           onClick={() => setHidden(false)}
           className={styles.close}
-          src={close}
+          src={imgs.close}
           alt="close"
         />
         <div className={styles.modalBox}>
@@ -75,6 +81,8 @@ const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
               value={form.price}
               placeholder="Price"
               type="number"
+              id="number"
+              min="0"
             />
             <input
               onChange={(e) => onChangeForm(e, "productName")}
@@ -93,17 +101,19 @@ const ModalPopUp = ({ hidden, setHidden, allProducts, handleSubmit }) => {
               value={form.remains}
               placeholder="Quanity of goods"
               type="number"
+              min="0"
             />
             <input
               onChange={(e) => onChangeForm(e, "weight")}
               value={form.weight}
               placeholder="Weight/Volume of one item"
               type="text"
+              min={"0"}
             />
-            <button className={styles.formBtn} onClick={onSubmit}>
+            <div className={styles.formBtn} onClick={onSubmit}>
               <span>Add a product</span>
-              <img src={plus} alt="plus" />
-            </button>
+              <img src={imgs.plus} alt="plus" />
+            </div>
           </div>
         </div>
       </div>

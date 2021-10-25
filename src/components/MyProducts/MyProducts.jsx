@@ -10,26 +10,27 @@ import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
 const MyProducts = (props) => {
   const [hidden, setHidden] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState(
+    JSON.parse(localStorage.getItem("products")) || []
+  );
 
   const handleSubmit = () => {
-    // setIsSubmit(!isSubmit);
-    if (allProducts && allProducts.length === 0) {
-      localStorage.setItem("products", JSON.stringify(products));
-      setAllProducts(products);
-    }
+    setIsSubmit(!isSubmit);
   };
   const openModal = () => {
     setHidden(true);
   };
 
   useEffect(() => {
-    setAllProducts(JSON.parse(localStorage.getItem("products")));
-  }, [isSubmit]);
+    if (allProducts && allProducts.length === 0) {
+      localStorage.setItem("products", JSON.stringify(products));
+      setAllProducts(products);
+    }
+  }, []);
 
   useEffect(() => {
     setAllProducts(JSON.parse(localStorage.getItem("products")));
-  }, []);
+  }, [isSubmit]);
 
   const updateAllProducts = (date) => {
     setAllProducts(date);
@@ -42,7 +43,7 @@ const MyProducts = (props) => {
         <div className={styles.wrapper}>
           <div className={styles.headWrapper}>
             <div className={styles.headWrapperTitle}>
-              <h1>My products</h1>
+              <h1>My product</h1>
               <p>Product table</p>
             </div>
             <div onClick={openModal} className={styles.wrapperButton}>
@@ -51,7 +52,7 @@ const MyProducts = (props) => {
                 className={styles.buttonLogo}
                 alt={"createIcon"}
               />
-              <p className={styles.buttonText}>Create a product</p>
+              <span className={styles.buttonText}>Create a product</span>
             </div>
           </div>
           <div>
@@ -66,13 +67,16 @@ const MyProducts = (props) => {
               <div className={styles.productListMenu}>Weight/Volume</div>
               <div className={styles.productListMenu}>Actions</div>
             </div>
-            {allProducts.map((product) => (
-              <ProductItem
-                product={product}
-                allProducts={allProducts}
-                updateAllProducts={updateAllProducts}
-              />
-            ))}
+            <div className={styles.products}>
+              {allProducts.map((product) => (
+                <ProductItem
+                  product={product}
+                  allProducts={allProducts}
+                  updateAllProducts={updateAllProducts}
+                  setIsSubmit={setIsSubmit}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

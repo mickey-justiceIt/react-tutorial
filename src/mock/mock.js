@@ -12,12 +12,14 @@ import personCabinetIcon from "../assets/logo/user.svg";
 import editIcon from "../assets/logo/edit2.svg";
 import deleteIcon from "../assets/logo/delete.svg";
 import plus from "../assets/logo/plus.svg";
+import logout from "../assets/logo/log.svg";
 
 const today = new Date();
 const date =
   today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 const cuttedAddress =
   "Krylatskaya street,15".split("").slice(0, 15).join("") + "...";
+
 export const imgs = {
   oval: oval,
   vector: vector,
@@ -33,6 +35,7 @@ export const imgs = {
   editIcon: editIcon,
   deleteIcon: deleteIcon,
   plus: plus,
+  logout: logout,
 };
 
 export const products = [
@@ -54,7 +57,29 @@ export const products = [
     address: cuttedAddress,
     category: "SportsWear",
     creationDate: date,
-    price: 1000,
+    price: 800,
+    remains: 40,
+    weight: 5,
+  },
+  {
+    id: Math.floor(Math.random() * 1000),
+    productName: "Sneakers",
+    store: "New balance",
+    address: cuttedAddress,
+    category: "SportsWear",
+    creationDate: date,
+    price: 600,
+    remains: 40,
+    weight: 5,
+  },
+  {
+    id: Math.floor(Math.random() * 1000),
+    productName: "Sneakers",
+    store: "Nike",
+    address: cuttedAddress,
+    category: "SportsWear",
+    creationDate: date,
+    price: 500,
     remains: 40,
     weight: 5,
   },
@@ -65,40 +90,18 @@ export const products = [
     address: cuttedAddress,
     category: "SportsWear",
     creationDate: date,
-    price: 1000,
+    price: 400,
     remains: 40,
     weight: 5,
   },
   {
     id: Math.floor(Math.random() * 1000),
     productName: "Sneakers",
-    store: "Adidas",
+    store: "Puma",
     address: cuttedAddress,
     category: "SportsWear",
     creationDate: date,
-    price: 1000,
-    remains: 40,
-    weight: 5,
-  },
-  {
-    id: Math.floor(Math.random() * 1000),
-    productName: "Sneakers",
-    store: "Adidas",
-    address: cuttedAddress,
-    category: "SportsWear",
-    creationDate: date,
-    price: 1000,
-    remains: 40,
-    weight: 5,
-  },
-  {
-    id: Math.floor(Math.random() * 1000),
-    productName: "Sneakers",
-    store: "Adidas",
-    address: cuttedAddress,
-    category: "SportsWear",
-    creationDate: date,
-    price: 1000,
+    price: 300,
     remains: 40,
     weight: 5,
   },

@@ -4,10 +4,6 @@ import styles from "./SaleModal.module.scss";
 
 import { imgs } from "../../../mock/mock";
 
-const today = new Date();
-const presentDate =
-  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
-
 const SaleModal = ({
   hidden,
   setHidden,
@@ -19,11 +15,14 @@ const SaleModal = ({
   productName,
   category,
 }) => {
-  const [saleProducts, setSaleProducts] = useState([]);
+  const [saleProducts, setSaleProducts] = useState(
+    JSON.parse(localStorage.getItem("sale")) || []
+  );
   const [form, setForm] = useState({
     numberProducts: "",
     saleDate: "",
   });
+
   const onChangeForm = (e, name) => {
     const { value } = e.target;
     setForm((prevState) => ({
@@ -32,23 +31,39 @@ const SaleModal = ({
     }));
   };
 
-  const onSubmit = () => {
-    saleProducts.push({
-      id: id,
-      store: store,
-      productName: productName,
-      category: category,
-      price: price,
-      remains: remains,
-      weight: weight,
-      creationDate: presentDate,
-      address: "",
-      numberProducts: form.numberProducts,
-      saleDate: form.saleDate,
-    });
-    localStorage.setItem("sale", JSON.stringify(saleProducts));
-    setSaleProducts(saleProducts);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const today = new Date();
+    const presentDate =
+      today.getDate() +
+      "." +
+      (today.getMonth() + 1) +
+      "." +
+      today.getFullYear();
+
+    const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
+
+    const soldItems = [
+      ...saleProducts,
+      {
+        id: id,
+        store: store,
+        productName: productName,
+        category: category,
+        price: price,
+        remains: remains,
+        weight: weight,
+        creationDate: presentDate,
+        address: userInfo.address || "No configured address",
+        numberProducts: form.numberProducts,
+        saleDate: form.saleDate || presentDate,
+      },
+    ];
+    localStorage.setItem("sale", JSON.stringify(soldItems));
+    setSaleProducts(soldItems);
+    setHidden(false);
   };
+
   return (
     <>
       <div

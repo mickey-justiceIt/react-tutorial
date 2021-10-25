@@ -4,7 +4,12 @@ import { imgs } from "../../../mock/mock";
 import EditModal from "../../Modals/EditModal/EditModal";
 import SaleModal from "../../Modals/SaleModal/SaleModal";
 
-const ProductItem = ({ product, allProducts, updateAllProducts }) => {
+const ProductItem = ({
+  product,
+  allProducts,
+  updateAllProducts,
+  setIsSubmit,
+}) => {
   const [hidden, setHidden] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isSellOpen, setIsSellOpen] = useState(false);
@@ -15,6 +20,7 @@ const ProductItem = ({ product, allProducts, updateAllProducts }) => {
 
   const onEditProduct = (id) => {
     setHidden(true);
+    setIsSellOpen(false);
     const hasId = allProducts.filter((item) => item.id !== id);
     if (hasId) {
       setIsEditOpen(true);
@@ -23,6 +29,7 @@ const ProductItem = ({ product, allProducts, updateAllProducts }) => {
 
   const onSaleProduct = (product) => {
     setHidden(true);
+    setIsEditOpen(false);
     const hasId = allProducts.filter((item) => item.id === product.id);
     if (hasId) {
       setIsSellOpen(true);
@@ -37,31 +44,31 @@ const ProductItem = ({ product, allProducts, updateAllProducts }) => {
         <div className={styles.productItem}>{product.address}</div>
         <div className={styles.productItem}>{product.category}</div>
         <div className={styles.productItem}>{product.creationDate}</div>
-        <div className={styles.productItem}>{product.price}</div>
+        <div className={styles.productItem}>{`$${product.price}`}</div>
         <div className={styles.productItem}>{product.remains}</div>
-        <div className={styles.productItem}>{product.weight}</div>
+        <div className={styles.productItem}>{`${product.weight}kg`}</div>
         <div className={styles.productItem}>
           <div onClick={onEditProduct} className={styles.button}>
             <img src={imgs.editIcon} alt="edit" />
           </div>
           <div onClick={onSaleProduct} className={styles.button}>
-            <p>Sell</p>
+            <span>Sell</span>
           </div>
           <div
             onClick={() => onRemoveProduct(product.id)}
             className={styles.button}
           >
-            <img src={imgs.deleteIcon} alt="delete" />
+            <img className={styles.delete} src={imgs.deleteIcon} alt="delete" />
           </div>
         </div>
       </div>
-
       {isEditOpen && (
         <EditModal
           products={allProducts}
           id={product.id}
           hidden={hidden}
           setHidden={setHidden}
+          setIsSubmit={setIsSubmit}
         />
       )}
       {isSellOpen && (

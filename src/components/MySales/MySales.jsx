@@ -7,8 +7,8 @@ import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
 
 const MySales = (props) => {
   const [hidden, setHidden] = useState(false);
-
   const [allProducts, setAllProducts] = useState([]);
+
   const handleSubmit = () => {
     if (allProducts && allProducts.length === 0) {
       localStorage.setItem("products", JSON.stringify(products));
@@ -38,7 +38,7 @@ const MySales = (props) => {
                 className={styles.buttonLogo}
                 alt={"createIcon"}
               />
-              <p className={styles.buttonText}>Create a product</p>
+              <span className={styles.buttonText}>Create a product</span>
             </div>
           </div>
           <div>
@@ -60,11 +60,13 @@ const MySales = (props) => {
                 <div className={styles.productItem}>{product.address}</div>
                 <div className={styles.productItem}>{product.category}</div>
                 <div className={styles.productItem}>{product.creationDate}</div>
-                <div className={styles.productItem}>{product.price}</div>
+                <div className={styles.productItem}>{`$${product.price}`}</div>
                 <div className={styles.productItem}>
                   {product.numberProducts}
                 </div>
-                <div className={styles.productItem}>{product.weight}</div>
+                <div
+                  className={styles.productItem}
+                >{`${product.weight}kg`}</div>
                 <div className={styles.productItem}>{product.saleDate}</div>
               </div>
             ))}
@@ -73,6 +75,7 @@ const MySales = (props) => {
       </div>
       <ModalPopUp
         allProducts={allProducts}
+        setAllProducts={setAllProducts}
         handleSubmit={handleSubmit}
         hidden={hidden}
         setHidden={setHidden}

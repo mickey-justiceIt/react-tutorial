@@ -3,11 +3,7 @@ import React, { useMemo, useState } from "react";
 import styles from "./EditModal.module.scss";
 import { imgs } from "../../../mock/mock";
 
-const today = new Date();
-const presentDate =
-  today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
-
-const EditModal = ({ hidden, setHidden, id, products }) => {
+const EditModal = ({ hidden, setHidden, id, products, setIsSubmit }) => {
   const [form, setForm] = useState({
     productName: "",
     store: "",
@@ -16,6 +12,7 @@ const EditModal = ({ hidden, setHidden, id, products }) => {
     weight: "",
     price: "",
   });
+
   const onChangeForm = (e, name) => {
     const { value } = e.target;
     setForm((prevState) => ({
@@ -25,28 +22,42 @@ const EditModal = ({ hidden, setHidden, id, products }) => {
   };
 
   const onSubmit = () => {
+    const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
+    console.log(userInfo.address);
+    const today = new Date();
+    const presentDate =
+      today.getDate() +
+      "." +
+      (today.getMonth() + 1) +
+      "." +
+      today.getFullYear();
+
     const newProducts = products.map((pr) => {
-      if (pr.id === form.id) {
+      if (pr.id === id) {
         return {
-          id: form.id,
-          productName: form.productName,
-          store: form.store,
-          category: form.category,
-          remains: form.remains,
-          weight: form.weight,
+          id: id,
+          productName: form.productName || pr.productName,
+          store: form.store || pr.store,
+          category: form.category || pr.category,
+          remains: form.remains || pr.remains,
+          weight: form.weight || pr.weight,
           creationDate: presentDate,
-          price: form.price,
-          address: "",
+          price: form.price || pr.price,
+          address: userInfo.address || "No configured address",
         };
       }
       return pr;
     });
 
     localStorage.setItem("products", JSON.stringify(newProducts));
+    setIsSubmit();
+    setHidden(false);
   };
 
   const newProduct = useMemo(() => {
-    return products.filter((pr) => pr.id === id)[0];
+    const np = products.filter((pr) => pr.id === id)[0];
+    setForm(np);
+    return np;
   }, [products]);
 
   return (
@@ -70,6 +81,7 @@ const EditModal = ({ hidden, setHidden, id, products }) => {
             <input
               defaultValue={newProduct.store}
               placeholder="Store"
+              onChange={(e) => onChangeForm(e, "store")}
               type="text"
             />
             <input
@@ -77,6 +89,7 @@ const EditModal = ({ hidden, setHidden, id, products }) => {
               placeholder="Price"
               onChange={(e) => onChangeForm(e, "price")}
               type="number"
+              min="0"
             />
             <input
               defaultValue={newProduct.productName}
@@ -96,6 +109,7 @@ const EditModal = ({ hidden, setHidden, id, products }) => {
               placeholder="Quanity of goods"
               onChange={(e) => onChangeForm(e, "remains")}
               type="number"
+              min="0"
             />
             <input
               defaultValue={newProduct.weight}
