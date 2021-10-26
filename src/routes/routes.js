@@ -1,20 +1,20 @@
-import MyProducts from "../MyProducts/MyProducts";
-import MainPage from "../MainPage/MainPage";
-import PersonalCabinet from "../PersonalCabinet/PersonalCabinet";
-import MySales from "../MySales/MySales";
-import SignIn from "../Sign/SignIn/SignIn";
-import SignUp from "../Sign/SignUp/SignUp";
+import MyProducts from "../components/MyProducts/MyProducts";
+import MainPage from "../components/MainPage/MainPage";
+import PersonalCabinet from "../components/PersonalCabinet/PersonalCabinet";
+import MySales from "../components/MySales/MySales";
+import Login from "../components/Sign/Login/Login";
+import Registration from "../components/Sign/Registration/Registration";
 
 export const routes = [
   {
-    component: SignUp,
-    path: "/signup",
+    component: Registration,
+    path: "/registration",
     exact: true,
     withAuth: false,
   },
   {
-    component: SignIn,
-    path: "/signin",
+    component: Login,
+    path: "/login",
     exact: true,
     withAuth: false,
   },
@@ -45,6 +45,4 @@ export const routes = [
     exact: true,
     withAuth: true,
   },
-
-
 ];

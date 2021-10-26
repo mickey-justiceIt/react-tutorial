@@ -4,9 +4,9 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 import { validate } from "../../../validate/validate";
 
-import styles from "./SignUp.module.scss";
+import styles from "./Registration.module.scss";
 
-const SignUp = ({ isReg, setIsReg, setIsLogin }) => {
+const Registration = ({ isReg, setIsReg, setIsLogin }) => {
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -164,4 +164,4 @@ const SignUp = ({ isReg, setIsReg, setIsLogin }) => {
   );
 };
 
-export default SignUp;
+export default Registration;

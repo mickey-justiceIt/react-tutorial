@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./App.module.scss";
 
 import { Switch, Route, Redirect } from "react-router-dom";
-import { routes } from "./components/routes/routes";
+import { routes } from "./routes/routes";
 
 import SideBar from "./components/Sidebar/Sidebar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
