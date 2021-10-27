@@ -6,22 +6,23 @@ const ProtectedRoute = ({
   setIsReg,
   isLogin,
   setIsLogin,
-  component:Component,
+  component: Component,
   ...rest
 }) => {
-  const userInfo = isReg || isLogin
+  const userInfo = isReg || isLogin;
   return (
     <Route
       {...rest}
       render={() =>
         userInfo ? (
-          <Component 
-            isReg={isReg} 
-            setIsReg={setIsReg} 
+          <Component
+            isReg={isReg}
+            setIsReg={setIsReg}
             isLogin={isLogin}
-            setIsLogin={setIsLogin} />
+            setIsLogin={setIsLogin}
+          />
         ) : (
-          <Redirect to="/signup" />
+          <Redirect to="/registration" />
         )
       }
     />

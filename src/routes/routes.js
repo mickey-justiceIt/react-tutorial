@@ -2,8 +2,8 @@ import MyProducts from "../components/MyProducts/MyProducts";
 import MainPage from "../components/MainPage/MainPage";
 import PersonalCabinet from "../components/PersonalCabinet/PersonalCabinet";
 import MySales from "../components/MySales/MySales";
-import Login from "../components/Sign/Login/Login";
-import Registration from "../components/Sign/Registration/Registration";
+import Login from "../components/Login/Login";
+import Registration from "../components/Registration/Registration";
 
 export const routes = [
   {

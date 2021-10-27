@@ -12,7 +12,7 @@ const SideBar = ({ isLogin, setIsLogin, setIsReg, isReg }) => {
     setIsLogin(localStorage.setItem("ISLOGIN", JSON.stringify(false)));
   };
   if (!(isLogin && isReg)) {
-    return <Redirect to="/signin" />;
+    return <Redirect to="/registration" />;
   }
   return (
     <div className={styles.container}>
