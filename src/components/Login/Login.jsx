@@ -4,6 +4,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 
 import styles from "./Login.module.scss";
+import { userLogin } from "../../services/services";
 
 const Login = ({ isLogin, setIsLogin, setIsReg }) => {
   const formik = useFormik({
@@ -18,6 +19,10 @@ const Login = ({ isLogin, setIsLogin, setIsReg }) => {
       if (checkUser) {
         localStorage.setItem("ISREG", JSON.stringify(true));
         localStorage.setItem("ISLOGIN", JSON.stringify(true));
+
+        userLogin(values)
+          .then((response) => console.log(response))
+          .catch((e) => console.log(e));
       }
     },
   });

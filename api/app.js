@@ -7,10 +7,15 @@ const productsRoutes = require("./routes/products");
 const userDate = require("./routes/userDate");
 const keys = require("./config/keys");
 
+const passport = require("passport");
+
 mongoose
   .connect(keys.mongoURI)
   .then(() => console.log("MongoDB created"))
   .catch((e) => console.log(e));
+
+app.use(passport.initialize());
+require("./middleware/passport")(passport);
 
 app.use(require("morgan")("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));

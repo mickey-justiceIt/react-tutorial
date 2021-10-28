@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { validate } from "../../validate/validate";
 
 import styles from "./Registration.module.scss";
+import { userRegistration } from "../../services/services";
 
 const Registration = ({ isReg, setIsReg, setIsLogin }) => {
   const formik = useFormik({
@@ -21,6 +22,7 @@ const Registration = ({ isReg, setIsReg, setIsLogin }) => {
       localStorage.setItem("CURRENT USER", JSON.stringify(values));
       localStorage.setItem("ISREG", JSON.stringify(true));
       localStorage.setItem("ISLOGIN", JSON.stringify(true));
+      userRegistration(values).then((response) => console.log(response));
     },
   });
   if (isReg) {
