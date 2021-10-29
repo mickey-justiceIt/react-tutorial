@@ -3,7 +3,7 @@ import styles from "./MySales.module.scss";
 
 import { imgs, products } from "../../mock/mock";
 
-import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
+import CreateModal from "../Modals/CreateModal/CreateModal";
 
 const MySales = (props) => {
   const [hidden, setHidden] = useState(false);
@@ -73,7 +73,7 @@ const MySales = (props) => {
           </div>
         </div>
       </div>
-      <ModalPopUp
+      <CreateModal
         allProducts={allProducts}
         setAllProducts={setAllProducts}
         handleSubmit={handleSubmit}

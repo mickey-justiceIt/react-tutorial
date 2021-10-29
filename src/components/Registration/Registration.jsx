@@ -22,7 +22,7 @@ const Registration = ({ isReg, setIsReg, setIsLogin }) => {
       localStorage.setItem("CURRENT USER", JSON.stringify(values));
       localStorage.setItem("ISREG", JSON.stringify(true));
       localStorage.setItem("ISLOGIN", JSON.stringify(true));
-      userRegistration(values).then((response) => console.log(response));
+      // userRegistration(values).then((response) => console.log(response));
     },
   });
   if (isReg) {

@@ -5,7 +5,7 @@ import styles from "./MyProducts.module.scss";
 import { imgs, products } from "../../mock/mock";
 
 import ProductItem from "./ProductItem/Productitem";
-import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
+import CreateModal from "../Modals/CreateModal/CreateModal";
 
 const MyProducts = (props) => {
   const [hidden, setHidden] = useState(false);
@@ -80,7 +80,7 @@ const MyProducts = (props) => {
           </div>
         </div>
       </div>
-      <ModalPopUp
+      <CreateModal
         allProducts={allProducts}
         handleSubmit={handleSubmit}
         hidden={hidden}

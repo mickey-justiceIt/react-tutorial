@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth");
 const productsRoutes = require("./routes/products");
+const salesRoutes = require("./routes/sales");
 const userDate = require("./routes/userDate");
 const keys = require("./config/keys");
 
@@ -24,6 +25,7 @@ app.use(require("cors")());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productsRoutes);
+app.use("/api/sales", salesRoutes);
 app.use("/api/userDate", userDate);
 
 module.exports = app;

@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
+
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
   name: {
+    type: String,
+    required: true,
+  },
+  store: {
     type: String,
     required: true,
   },
@@ -12,23 +18,23 @@ const productSchema = new Schema({
   },
   remain: {
     type: Number,
-    required: true,
+    // required: true,
   },
-  weight: {
-    type: Number,
+  category: {
+    type: String,
     required: true,
   },
   creationDate: {
     type: Date,
     default: Date.now(),
   },
-  category: {
-    type: String,
-    required: true,
-  },
-  id: {
+  weight: {
     type: Number,
     required: true,
+  },
+  address: {
+    type: String,
+    default: "No configured address",
   },
 });
 

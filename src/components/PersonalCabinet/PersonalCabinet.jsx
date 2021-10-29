@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { imgs, products } from "../../mock/mock";
 
-import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
+import CreateModal from "../Modals/CreateModal/CreateModal";
 import { useFormik } from "formik";
 
 import styles from "./PersonalCabinet.module.scss";
@@ -204,7 +204,7 @@ const PersonalCabinet = (props) => {
           </div>
         </div>
       </div>
-      <ModalPopUp
+      <CreateModal
         hidden={hidden}
         setHidden={setHidden}
         allProducts={allProducts}

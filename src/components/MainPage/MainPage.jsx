@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import { imgs, products } from "../../mock/mock";
 
-import ModalPopUp from "../Modals/PopUpModal/ModalPopUp";
 import PieChart from "../Charts/PieChart/PieChart";
 import BarChart from "../Charts/BarChart/BarChart";
 import LineChart from "../Charts/LineChart/LineChart";
+import CreateModal from "../Modals/CreateModal/CreateModal";
+
 import styles from "./MainPage.module.scss";
 
 const MainPage = (props) => {
@@ -68,7 +69,7 @@ const MainPage = (props) => {
           </div>
         </div>
       </div>
-      <ModalPopUp
+      <CreateModal
         allProducts={allProducts}
         handleSubmit={handleSubmit}
         hidden={hidden}
