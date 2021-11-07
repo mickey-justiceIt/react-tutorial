@@ -1,34 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 
 import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 
 import styles from "./Login.module.scss";
-// import { userLogin } from "../../services/services";
+import { userLogin } from "../../services/services";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-const Login = ({ isLogin, setIsLogin, setIsReg }) => {
+const Login = () => {
+
+  const [isLogin, setIsLogin] = useState(false)
+
+  const getToken = async (data) => {
+    await userLogin(data)
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("USERID", response.data.userId);
+          setIsLogin(true)
+        })
+        .catch((e) => {
+          console.log(e.response.data.message)
+        })
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values) => {
-      const users = JSON.parse(localStorage.getItem("CURRENT USER"));
-      const checkUser =
-        users.email === values.email && users.password === values.password;
-      if (checkUser) {
-        localStorage.setItem("ISREG", JSON.stringify(true));
-        localStorage.setItem("ISLOGIN", JSON.stringify(true));
-
-        // userLogin(values)
-        //   .then((response) => console.log(response))
-        //   .catch((e) => console.log(e));
-      }
+      getToken(values)
+      localStorage.setItem("ISAUTH", JSON.stringify(true));
     },
   });
   if (isLogin) {
     return <Redirect to="/main-page" />;
   }
+
   return (
     <>
       <div className={styles.container}>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./CreateModal.module.scss";
 
 import { imgs } from "../../../mock/mock";
+import {createProduct} from "../../../services/services";
 const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
   const [form, setForm] = useState({
     productName: "",
@@ -31,22 +32,23 @@ const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
       "." +
       today.getFullYear();
     const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
+    const newProduct = {
+      id: Date.now(),
+      productName: form.productName,
+      store: form.store,
+      price: form.price,
+      remains: form.remains,
+      category: form.category,
+      weight: form.weight,
+      creationDate: presentDate,
+      address: userInfo?.address || "No configured address",
+    }
 
     const newProducts = [
       ...allProducts,
-      {
-        id: Math.floor(Math.random() * 1000),
-        productName: form.productName,
-        store: form.store,
-        category: form.category,
-        remains: form.remains,
-        weight: form.weight,
-        creationDate: presentDate,
-        price: form.price,
-        address: userInfo.address || "No configured address",
-      },
+      newProduct,
     ];
-
+    createProduct(newProduct)
     localStorage.setItem("products", JSON.stringify(newProducts));
     handleSubmit();
     setHidden(false);
@@ -98,7 +100,7 @@ const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
             />
             <input
               onChange={(e) => onChangeForm(e, "remains")}
-              value={form.remains}
+              value={form.remain}
               placeholder="Quanity of goods"
               type="number"
               min="0"

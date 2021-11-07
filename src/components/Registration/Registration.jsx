@@ -1,15 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
-import { validate } from "../../validate/validate";
+import { authValidate } from "../../validate/validate";
 
 import styles from "./Registration.module.scss";
 import { userRegistration } from "../../services/services";
 
-const Registration = ({ isReg, setIsReg, setIsLogin }) => {
+const Registration = () => {
+  const [isReg, setIsReg] = useState(false);
+
+  const checkToken = (data) => {
+      userRegistration(data)
+          .then((response) => {
+            setIsReg(true);
+          })
+        .catch((e) => {
+          console.log(e.response.data.message);
+        })
+  }
   const formik = useFormik({
     initialValues: {
+      id: Date.now().toString(),
       firstName: "",
       lastName: "",
       email: "",
@@ -17,16 +29,25 @@ const Registration = ({ isReg, setIsReg, setIsLogin }) => {
       repeatPassword: "",
       company: "",
     },
-    validate,
+    authValidate,
     onSubmit: (values) => {
-      localStorage.setItem("CURRENT USER", JSON.stringify(values));
-      localStorage.setItem("ISREG", JSON.stringify(true));
-      localStorage.setItem("ISLOGIN", JSON.stringify(true));
-      // userRegistration(values).then((response) => console.log(response));
+      const newUser = {
+        id: Date.now().toString(),
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+        repeatPassword: values.repeatPassword,
+        company: values.company,
+      };
+      checkToken(newUser);
+      localStorage.setItem("ISAUTH", JSON.stringify(true));
+      localStorage.setItem("USERS", JSON.stringify(newUser));
+      localStorage.setItem("USERID", newUser.id);
     },
   });
   if (isReg) {
-    return <Redirect to="/main-page" />;
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -162,7 +183,7 @@ const Registration = ({ isReg, setIsReg, setIsLogin }) => {
         </div>
         <div className={styles.heroWrapper}></div>
       </div>
-    </>
+      </>
   );
 };
 

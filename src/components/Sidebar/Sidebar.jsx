@@ -6,12 +6,12 @@ import { NavLink, Redirect } from "react-router-dom";
 
 import { imgs } from "../../mock/mock";
 
-const SideBar = ({ isLogin, setIsLogin, setIsReg, isReg }) => {
+const SideBar = ({ isAuth, setIsAuth }) => {
   const handleLogout = () => {
-    setIsReg(localStorage.setItem("ISREG", JSON.stringify(false)));
-    setIsLogin(localStorage.setItem("ISLOGIN", JSON.stringify(false)));
+    setIsAuth(localStorage.removeItem("ISAUTH"));
+
   };
-  if (!(isLogin && isReg)) {
+  if (!(isAuth)) {
     return <Redirect to="/registration" />;
   }
   return (

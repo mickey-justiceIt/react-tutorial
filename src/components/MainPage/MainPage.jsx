@@ -21,6 +21,7 @@ const MainPage = (props) => {
   useEffect(() => {
     setAllProducts(JSON.parse(localStorage.getItem("products")));
   }, []);
+
   const openModal = () => {
     setHidden(true);
   };

@@ -4,7 +4,11 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 
 const saleProductSchema = new Schema({
-  name: {
+  id:{
+    type: Number,
+    default: Date.now()
+  },
+  productName: {
     type: String,
     required: true,
   },

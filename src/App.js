@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 import styles from "./App.module.scss";
@@ -9,58 +10,49 @@ import SideBar from "./components/Sidebar/Sidebar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [isReg, setIsReg] = useState(JSON.parse(localStorage.getItem("ISREG")));
-  const [isLogin, setIsLogin] = useState(
-    JSON.parse(localStorage.getItem("ISLOGIN"))
-  );
+    const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem("ISAUTH")));
 
-  return (
-    <>
-      <div className={styles.App}>
-        <SideBar
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          isReg={isReg}
-          setIsReg={setIsReg}
-        />
-        <Switch>
-          {routes.map((route, index) =>
-            route.withAuth ? (
-              <ProtectedRoute
-                path={route.path}
-                key={index}
-                component={route.component}
-                exact
-                isLogin={isLogin}
-                setIsLogin={setIsLogin}
-                isReg={isReg}
-                setIsReg={setIsReg}
-              />
-            ) : (
-              <Route
-                key={index}
-                path={route.path}
-                routes={route.exact}
-                render={() => {
-                  const Component = route.component;
-                  return (
-                    <>
-                      <Component
-                        isReg={isReg}
-                        setIsReg={setIsReg}
-                        isLogin={isLogin}
-                        setIsLogin={setIsLogin}
-                      />
-                    </>
-                  );
-                }}
-              />
-            )
-          )}
-        </Switch>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className={styles.App}>
+                <SideBar
+                    isAuth={isAuth}
+                    setIsAuth={setIsAuth}
+                />
+                <Switch>
+                    {routes.map((route, index) =>
+                        route.withAuth ? (
+                            <ProtectedRoute
+                                path={route.path}
+                                key={index}
+                                component={route.component}
+                                exact
+                                isAuth={isAuth}
+                                setIsAuth={setIsAuth}
+                            />
+                        ) : (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                routes={route.exact}
+                                render={() => {
+                                    const Component = route.component;
+                                    return (
+                                        <>
+                                            <Component
+                                                isAuth={isAuth}
+                                                setIsAuth={setIsAuth}
+                                            />
+                                        </>
+                                    );
+                                }}
+                            />
+                        )
+                    )}
+                </Switch>
+            </div>
+        </>
+    );
 }
 
 export default App;

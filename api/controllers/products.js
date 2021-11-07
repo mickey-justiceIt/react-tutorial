@@ -1,10 +1,10 @@
 const Product = require("../models/Product");
-const Sale = require("../models/Sale");
 const errorHandler = require("../utils/errorHandler");
 
 module.exports.create = async (req, res) => {
   const product = await new Product({
-    name: req.body.name,
+    id: req.body.id,
+    productName: req.body.productName,
     store: req.body.store,
     price: req.body.price,
     remain: req.body.remain,
@@ -23,7 +23,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.remove = async (req, res) => {
   try {
-    await Product.remove({ _id: req.params.id });
+    await Product.deleteMany({ id: req.body.id },);
     res.status(200).json({
       message: "Product deleted",
     });
@@ -35,7 +35,7 @@ module.exports.remove = async (req, res) => {
 module.exports.update = async (req, res) => {
   try {
     const product = await Product.findOneAndUpdate(
-      { _id: req.params.id },
+      { id: req.body.id },
       { $set: req.body },
       { new: true }
     );
@@ -45,22 +45,4 @@ module.exports.update = async (req, res) => {
   }
 };
 
-module.exports.sale = async (req, res) => {
-  const sale = await Product.findOne({ _id: req.params.id });
-  const saleProducts = await new Sale({
-    name: sale.name,
-    store: sale.store,
-    price: sale.price,
-    category: sale.category,
-    weight: sale.weight,
-    address: sale.address,
-    quanity: req.body.quanity,
-    saleDate: req.body.saleDate,
-  });
-  try {
-    await saleProducts.save();
-    res.status(200).json(saleProducts);
-  } catch (e) {
-    errorHandler(res, e);
-  }
-};
+

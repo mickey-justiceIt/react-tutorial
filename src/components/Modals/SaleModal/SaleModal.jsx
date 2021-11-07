@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./SaleModal.module.scss";
 
 import { imgs } from "../../../mock/mock";
+import {saleProduct} from "../../../services/services";
 
 const SaleModal = ({
   hidden,
@@ -42,24 +43,26 @@ const SaleModal = ({
       today.getFullYear();
 
     const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
-
+    const soldItem = {
+      id: id,
+      store: store,
+      productName: productName,
+      category: category,
+      price: price,
+      remains: remains,
+      weight: weight,
+      creationDate: presentDate,
+      address: userInfo?.address || "No configured address",
+      numberProducts: form.numberProducts,
+      saleDate: form.saleDate || presentDate,
+    }
+    saleProduct(soldItem)
     const soldItems = [
       ...saleProducts,
-      {
-        id: id,
-        store: store,
-        productName: productName,
-        category: category,
-        price: price,
-        remains: remains,
-        weight: weight,
-        creationDate: presentDate,
-        address: userInfo.address || "No configured address",
-        numberProducts: form.numberProducts,
-        saleDate: form.saleDate || presentDate,
-      },
+      soldItem
     ];
     localStorage.setItem("sale", JSON.stringify(soldItems));
+
     setSaleProducts(soldItems);
     setHidden(false);
   };

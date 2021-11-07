@@ -3,6 +3,7 @@ import styles from "./ProductItem.module.scss";
 import { imgs } from "../../../mock/mock";
 import EditModal from "../../Modals/EditModal/EditModal";
 import SaleModal from "../../Modals/SaleModal/SaleModal";
+import { removeProduct} from "../../../services/services";
 
 const ProductItem = ({
   product,
@@ -14,8 +15,10 @@ const ProductItem = ({
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isSellOpen, setIsSellOpen] = useState(false);
 
-  const onRemoveProduct = (id) => {
-    updateAllProducts(allProducts.filter((item) => item.id !== id));
+  const onRemoveProduct = (id,product) => {
+    const removedItem = allProducts.filter((item) => item.id !== id);
+    updateAllProducts(removedItem)
+    removeProduct(product)
   };
 
   const onEditProduct = (id) => {
@@ -55,7 +58,7 @@ const ProductItem = ({
             <span>Sell</span>
           </div>
           <div
-            onClick={() => onRemoveProduct(product.id)}
+            onClick={() => onRemoveProduct(product.id,product)}
             className={styles.button}
           >
             <img className={styles.delete} src={imgs.deleteIcon} alt="delete" />
