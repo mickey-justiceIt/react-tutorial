@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./SaleModal.module.scss";
 
 import { imgs } from "../../../mock/mock";
-import {saleProduct} from "../../../services/services";
+import { saleProduct } from "../../../services/services";
 
 const SaleModal = ({
   hidden,
@@ -55,12 +55,9 @@ const SaleModal = ({
       address: userInfo?.address || "No configured address",
       numberProducts: form.numberProducts,
       saleDate: form.saleDate || presentDate,
-    }
-    saleProduct(soldItem)
-    const soldItems = [
-      ...saleProducts,
-      soldItem
-    ];
+    };
+    saleProduct(soldItem);
+    const soldItems = [...saleProducts, soldItem];
     localStorage.setItem("sale", JSON.stringify(soldItems));
 
     setSaleProducts(soldItems);

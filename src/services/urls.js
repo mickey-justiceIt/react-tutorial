@@ -6,5 +6,4 @@ export const urlRequests = {
   register: `${baseURL}auth/register`,
   products: `${baseURL}products`,
   sales: `${baseURL}sales`,
-
 };

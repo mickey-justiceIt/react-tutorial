@@ -4,8 +4,6 @@ const keys = require("../config/keys");
 const User = require("../models/User");
 const errorHandler = require("../utils/errorHandler");
 
-
-
 module.exports.login = async (req, res) => {
   const candidate = await User.findOne({
     email: req.body.email,
@@ -44,7 +42,6 @@ module.exports.login = async (req, res) => {
   }
 };
 
-
 module.exports.register = async function (req, res) {
   const candidate = await User.findOne({
     email: req.body.email,
@@ -77,28 +74,33 @@ module.exports.register = async function (req, res) {
   }
 };
 
-module.exports.getUser = async (req,res) => {
+module.exports.getUser = async (req, res) => {
+  const user = await User.findOne({ id: req.body.id });
   try {
-    const user = await User.findOne({id:req.body.id})
-    await user
+    await user.save();
     res.status(200).json(user);
   } catch (e) {
     errorHandler(res, e);
   }
-}
+};
 
 module.exports.updateUser = async (req, res) => {
-  try {
   let user = await User.findOneAndUpdate(
-      {id: req.body.id},
-      {$set: req.body},
-      {new: true}
+    { id: req.body.id },
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      company: req.body.company,
+      email: req.body.email,
+      address: req.body.address,
+    },
+    { new: true }
   );
   // when user true
   const passwordCompare = bcrypt.compareSync(
-      req.body.oldPassword,
-      user.password
-  )
+    req.body.oldPassword,
+    user.password
+  );
   if (!passwordCompare) {
     // throw error password
     res.status(401).json({
@@ -107,12 +109,13 @@ module.exports.updateUser = async (req, res) => {
   } else {
     //when passwords matches
     const salt = bcrypt.genSaltSync(10);
-    const newPassword = req.body.newPassword
-    user.password = await bcrypt.hashSync(newPassword, salt)
+    const newPassword = req.body.newPassword;
+    user.password = bcrypt.hashSync(newPassword, salt);
   }
-      await user.save();
-      res.status(200).json(user);
-    } catch (e) {
-      errorHandler(res, e);
-    }
-}
+  try {
+    await user.save();
+    res.status(200).json(user);
+  } catch (e) {
+    errorHandler(res, e);
+  }
+};

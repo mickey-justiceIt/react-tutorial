@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
@@ -8,20 +8,19 @@ import { userLogin } from "../../services/services";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const Login = () => {
-
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
 
   const getToken = async (data) => {
     await userLogin(data)
-        .then((response) => {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem("USERID", response.data.userId);
-          setIsLogin(true)
-        })
-        .catch((e) => {
-          console.log(e.response.data.message)
-        })
-  }
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("USERID", response.data.userId);
+        setIsLogin(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +28,7 @@ const Login = () => {
       password: "",
     },
     onSubmit: (values) => {
-      getToken(values)
+      getToken(values);
       localStorage.setItem("ISAUTH", JSON.stringify(true));
     },
   });

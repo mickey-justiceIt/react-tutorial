@@ -50,7 +50,7 @@ export const removeProduct = (data) => {
   return axiosApi({
     method: "DELETE",
     url,
-    data
+    data,
   });
 };
 
@@ -66,9 +66,9 @@ export const saleProduct = (data) => {
 export const getUserDate = (data) => {
   const url = urlRequests.user;
   return axiosApi({
-    method: "GET",
+    method: "POST",
     url,
-    data
+    data,
   });
 };
 
@@ -77,8 +77,6 @@ export const updateUser = (data) => {
   return axiosApi({
     method: "PATCH",
     url,
-    data
+    data,
   });
 };
-
-

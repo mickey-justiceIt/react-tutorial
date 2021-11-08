@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
@@ -11,14 +11,14 @@ const Registration = () => {
   const [isReg, setIsReg] = useState(false);
 
   const checkToken = (data) => {
-      userRegistration(data)
-          .then((response) => {
-            setIsReg(true);
-          })
-        .catch((e) => {
-          console.log(e.response.data.message);
-        })
-  }
+    userRegistration(data)
+      .then((response) => {
+        setIsReg(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const formik = useFormik({
     initialValues: {
       id: Date.now().toString(),
@@ -183,7 +183,7 @@ const Registration = () => {
         </div>
         <div className={styles.heroWrapper}></div>
       </div>
-      </>
+    </>
   );
 };
 

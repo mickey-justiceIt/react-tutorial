@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./CreateModal.module.scss";
 
 import { imgs } from "../../../mock/mock";
-import {createProduct} from "../../../services/services";
+import { createProduct } from "../../../services/services";
 const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
   const [form, setForm] = useState({
     productName: "",
@@ -13,6 +13,7 @@ const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
     weight: "",
     price: "",
   });
+  const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
 
   const onChangeForm = (e, name) => {
     const { value } = e.target;
@@ -31,7 +32,7 @@ const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
       (today.getMonth() + 1) +
       "." +
       today.getFullYear();
-    const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
+
     const newProduct = {
       id: Date.now(),
       productName: form.productName,
@@ -42,13 +43,10 @@ const CreateModal = ({ hidden, setHidden, allProducts, handleSubmit }) => {
       weight: form.weight,
       creationDate: presentDate,
       address: userInfo?.address || "No configured address",
-    }
+    };
 
-    const newProducts = [
-      ...allProducts,
-      newProduct,
-    ];
-    createProduct(newProduct)
+    const newProducts = [...allProducts, newProduct];
+    createProduct(newProduct);
     localStorage.setItem("products", JSON.stringify(newProducts));
     handleSubmit();
     setHidden(false);
