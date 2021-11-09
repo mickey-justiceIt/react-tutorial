@@ -2,38 +2,37 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  id:{
+  id: {
     type: Number,
-    default: Date.now()
+    default: Date.now(),
   },
   firstName: {
     type: String,
-    required: true,
+    required: false,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
   },
   company: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
-  address:{
+  address: {
     type: String,
-    default: "No configured address"
+    default: "No configured address",
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   oldPassword: {
     type: String,
-
   },
   newPassword: {
     type: String,

@@ -1,34 +1,46 @@
-import React, { useState, useEffect, useMemo, useLayoutEffect } from "react";
-
-import CreateModal from "../Modals/CreateModal/CreateModal";
-import { useFormik } from "formik";
-import { cabinetValidate } from "../../validate/validate";
-import { getUserDate, updateUser } from "../../services/services";
-
+import React, { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import { imgs, products } from "../../mock/mock";
 import styles from "./PersonalCabinet.module.scss";
+import { getUserDate, updateUser } from "../../services/services";
+import CreateModal from "../Modals/CreateModal/CreateModal";
 
-const PersonalCabinet = (props) => {
+const NPersonalCabinet = () => {
   const userInfo = JSON.parse(localStorage.getItem("USERID"));
   const [allProducts, setAllProducts] = useState([]);
   const [hidden, setHidden] = useState(false);
   const [user, setUser] = useState({});
-  const [firstName, setFirstName] = useState("xcv");
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: useMemo(() => {
+      return {
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+        company: user?.company,
+        address: user?.address || "No configured address",
+        oldPassword: "",
+        newPassword: "",
+      };
+    }, [user]),
+  });
+  useEffect(() => {
+    reset(user);
+  }, [user]);
+
   const openModal = () => {
     setHidden(true);
   };
 
-  const handleSubmit = () => {
+  const handlerSubmit = () => {
     if (allProducts && allProducts.length === 0) {
       localStorage.setItem("products", JSON.stringify(products));
       setAllProducts(products);
     }
   };
-
+  console.log("===>user", user);
   const getInfo = async (data) => {
     await getUserDate({ id: data })
       .then((response) => {
-        setFirstName(response.data.firstName);
         setUser({
           firstName: response.data.firstName,
           lastName: response.data.lastName,
@@ -44,37 +56,25 @@ const PersonalCabinet = (props) => {
     setAllProducts(JSON.parse(localStorage.getItem("products")));
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getInfo(userInfo);
   }, []);
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: firstName,
-      lastName: user?.lastName,
-      email: user?.email,
-      company: user?.company,
-      address: user?.address || "No configured address",
-      oldPassword: "",
-      newPassword: "",
-    },
-    cabinetValidate,
-    onSubmit: (values) => {
-      const updUser = {
-        id: userInfo,
-        firstName: values.firstName || user.firstName,
-        lastName: values.lastName || user.lastName,
-        email: values.email || user.email,
-        address: values.address || user.address,
-        company: values.company || user.company,
-        oldPassword: values.oldPassword,
-        newPassword: values.newPassword,
-      };
-      updateUser(updUser);
-    },
-  });
+  const onSubmit = (values) => {
+    const updUser = {
+      id: userInfo,
+      firstName: values.firstName || user.firstName,
+      lastName: values.lastName || user.lastName,
+      email: values.email || user.email,
+      address: values.address || user.address,
+      company: values.company || user.company,
+      oldPassword: values.oldPassword,
+      newPassword: values.newPassword,
+    };
+    updateUser(updUser);
+  };
 
-  return formik ? (
+  return (
     <>
       <div className={styles.container}>
         <div className={styles.wrapper}>
@@ -94,83 +94,68 @@ const PersonalCabinet = (props) => {
           </div>
           <hr />
           <div>
-            <form className={styles.formContainer} action="submit">
+            <form
+              className={styles.formContainer}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className={styles.formColumn}>
                 <label htmlFor="firstName" className={styles.formItem}>
                   First name
                   <input
+                    {...register("firstName")}
                     id="firstName"
                     name="firstName"
-                    value={formik.values.firstName}
-                    onChange={formik.handleChange}
                     className={styles.formInput}
                     placeholder="Enter First name"
                     type="text"
                   />
-                  {formik.errors.firstName ? (
-                    <div className={styles.errors}>
-                      {formik.errors.firstName}
-                    </div>
-                  ) : null}
                 </label>
                 <label htmlFor="lastName" className={styles.formItem}>
                   Last name
                   <input
+                    {...register("lastName")}
                     id="lastName"
                     name="lastName"
-                    onChange={formik.handleChange}
-                    value={formik.values.lastName}
                     className={styles.formInput}
                     placeholder="Enter Last name"
                     type="text"
                   />
-                  {formik.errors.lastName ? (
-                    <div className={styles.errors}>
-                      {formik.errors.lastName}
-                    </div>
-                  ) : null}
                 </label>
               </div>
               <div className={styles.formColumn}>
                 <label htmlFor="company" className={styles.formItem}>
                   Company name
                   <input
+                    {...register("company")}
                     id="company"
                     name="company"
                     className={styles.formInput}
                     placeholder="Company Name"
                     type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.company}
                   />
                 </label>
                 <label className={styles.formItem}>
                   Company email
                   <input
+                    {...register("email")}
                     id="email"
                     name="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
                     className={styles.formInput}
                     placeholder="Company email"
                     type="email"
                   />
-                  {formik.errors.email ? (
-                    <div className={styles.errors}>{formik.errors.email}</div>
-                  ) : null}
                 </label>
               </div>
               <div className={styles.formColumn}>
                 <label htmlFor="address" className={styles.formItem}>
                   Address
                   <input
+                    {...register("address")}
                     id="address"
                     name="address"
-                    value={formik.values.address || user.address}
                     className={styles.formInput}
                     placeholder="Enter address"
                     type="text"
-                    onChange={formik.handleChange}
                   />
                 </label>
               </div>
@@ -178,45 +163,28 @@ const PersonalCabinet = (props) => {
                 <label htmlFor="oldPassword" className={styles.formItem}>
                   Enter Old Password
                   <input
+                    {...register("oldPassword")}
                     id="oldPassword"
                     name="oldPassword"
-                    onChange={formik.handleChange}
-                    value={formik.values.oldPassword}
                     className={styles.formInput}
                     placeholder="Enter password"
                     type="password"
                   />
-                  {formik.errors.oldPassword ? (
-                    <div className={styles.errors}>
-                      {formik.errors.oldPassword}
-                    </div>
-                  ) : null}
                 </label>
                 <label htmlFor="newPassword" className={styles.formItem}>
                   Enter New Password
                   <input
+                    {...register("newPassword")}
                     id="newPassword"
                     name="newPassword"
-                    onChange={formik.handleChange}
-                    value={formik.values.newPassword}
                     className={styles.formInput}
                     placeholder="Enter a new password"
                     type="password"
                   />
-                  {formik.errors.newPassword ? (
-                    <div className={styles.errors}>
-                      {formik.errors.newPassword}
-                    </div>
-                  ) : null}
                 </label>
               </div>
               <div className={styles.formColumn}>
-                <button
-                  onClick={formik.handleSubmit}
-                  className={styles.formBtn}
-                >
-                  Save changes
-                </button>
+                <button className={styles.formBtn}>Save changes</button>
               </div>
             </form>
           </div>
@@ -226,12 +194,10 @@ const PersonalCabinet = (props) => {
         hidden={hidden}
         setHidden={setHidden}
         allProducts={allProducts}
-        handleSubmit={handleSubmit}
+        handleSubmit={handlerSubmit}
       />
     </>
-  ) : (
-    <div>loading</div>
   );
 };
 
-export default PersonalCabinet;
+export default NPersonalCabinet;

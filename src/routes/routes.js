@@ -1,9 +1,10 @@
 import MyProducts from "../components/MyProducts/MyProducts";
 import MainPage from "../components/MainPage/MainPage";
-import PersonalCabinet from "../components/PersonalCabinet/PersonalCabinet";
+// import PersonalCabinet from "../components/PersonalCabinet/PersonalCabinet";
 import MySales from "../components/MySales/MySales";
 import Login from "../components/Login/Login";
 import Registration from "../components/Registration/Registration";
+import NPersonalCabinet from "../components/PersonalCabinet/NPersonalCabinet";
 
 export const routes = [
   {
@@ -40,7 +41,7 @@ export const routes = [
   },
 
   {
-    component: PersonalCabinet,
+    component: NPersonalCabinet,
     path: "/personal-cabinet",
     exact: true,
     withAuth: true,

@@ -64,7 +64,6 @@ module.exports.register = async function (req, res) {
       address: req.body.address,
       password: bcrypt.hashSync(password, salt),
     });
-
     try {
       await user.save();
       res.status(201).json(user);
@@ -84,35 +83,43 @@ module.exports.getUser = async (req, res) => {
   }
 };
 
-module.exports.updateUser = async (req, res) => {
-  let user = await User.findOneAndUpdate(
-    { id: req.body.id },
-    {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      company: req.body.company,
-      email: req.body.email,
-      address: req.body.address,
-    },
-    { new: true }
-  );
-  // when user true
-  const passwordCompare = bcrypt.compareSync(
-    req.body.oldPassword,
-    user.password
-  );
-  if (!passwordCompare) {
-    // throw error password
-    res.status(401).json({
-      message: "Password wrong",
-    });
-  } else {
-    //when passwords matches
-    const salt = bcrypt.genSaltSync(10);
-    const newPassword = req.body.newPassword;
-    user.password = bcrypt.hashSync(newPassword, salt);
-  }
+module.exports.updateUserInfo = async (req, res) => {
   try {
+    const setNewPassword = (currentPass, oldPass, newPass) => {
+      const passwordCompare = bcrypt.compareSync(oldPass, currentPass);
+
+      if (passwordCompare) {
+        const salt = bcrypt.genSaltSync(10);
+        return bcrypt.hashSync(newPass, salt);
+      }
+
+      return "";
+    };
+
+    let user2 = await User.findOne({ id: req.body.id });
+    let user = await User.findOneAndUpdate(
+      { id: req.body.id },
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        company: req.body.company,
+        email: req.body.email,
+        address: req.body.address,
+        password: setNewPassword(
+          user2.password,
+          req.body.oldPassword,
+          req.body.newPassword
+        )
+          ? setNewPassword(
+              user2.password,
+              req.body.oldPassword,
+              req.body.newPassword
+            )
+          : req.body.password,
+      },
+      { new: true }
+    );
+
     await user.save();
     res.status(200).json(user);
   } catch (e) {

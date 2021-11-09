@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 
 import styles from "./EditModal.module.scss";
 import { imgs } from "../../../mock/mock";
-import {editProduct, getProducts} from "../../../services/services";
+import { editProduct } from "../../../services/services";
 
 const EditModal = ({ hidden, setHidden, id, products, setIsSubmit }) => {
   const [form, setForm] = useState({
@@ -26,26 +26,26 @@ const EditModal = ({ hidden, setHidden, id, products, setIsSubmit }) => {
     const userInfo = JSON.parse(localStorage.getItem("CURRENT USER"));
     const today = new Date();
     const presentDate =
-        today.getDate() +
-        "." +
-        (today.getMonth() + 1) +
-        "." +
-        today.getFullYear();
+      today.getDate() +
+      "." +
+      (today.getMonth() + 1) +
+      "." +
+      today.getFullYear();
 
-    const newProducts =  products.map( (pr) => {
-        if (pr.id === id) {
-         return  {
-            id: id,
-            productName: form.productName || pr.productName,
-            store: form.store || pr.store,
-            category: form.category || pr.category,
-            remains: form.remains || pr.remains,
-            weight: form.weight || pr.weight,
-            creationDate: presentDate || null,
-            price: form.price || pr.price,
-            address: userInfo?.address || "No configured address",
-          }
-        }
+    const newProducts = products.map((pr) => {
+      if (pr.id === id) {
+        return {
+          id: id,
+          productName: form.productName || pr.productName,
+          store: form.store || pr.store,
+          category: form.category || pr.category,
+          remains: form.remains || pr.remains,
+          weight: form.weight || pr.weight,
+          creationDate: presentDate || null,
+          price: form.price || pr.price,
+          address: userInfo?.address || "No configured address",
+        };
+      }
       return pr;
     });
 
@@ -56,7 +56,7 @@ const EditModal = ({ hidden, setHidden, id, products, setIsSubmit }) => {
 
   const newProduct = useMemo(() => {
     const np = products.filter((pr) => pr.id === id)[0];
-    editProduct(np)
+    editProduct(np);
     setForm(np);
     return np;
   }, [products]);
